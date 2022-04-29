@@ -18,49 +18,39 @@ const Form = () => {
         pregunta1: 5,
         pregunta2: 5,
         pregunta3: 5,
-        pregunta4: '',
-		fecha: ''
+        consulta: '',
+		fecha:''
     })
-const alerta = ()=>{
- swal.fire({
-	title:'Muchas gracias',
-	text:'Te valoracion fue enviada con Exito',
-	icon:'success',
-	button:'Aceptar',
-	timer:3500,
-})
-}
+
 const result = format(new Date(), 'dd.MM.yyyy HH:mm:ss')
 console.log(result)
 
-const guardarDatos = async ()=>{
+
+  
+	const guardarDatos = async ()=>{
 		const envioForm = await addDoc(collection(db, "encuestas"),{
-			datos
+			pregunta1: input1,
+			pregunta2: input2,
+			pregunta3: input3,
+			consulta: inputText,
+			fecha: result
 		});
         console.log(envioForm)
-			 
-}
-		 
-		 
+	}
 
 	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-       setDatos ({
-            pregunta1: input1,
-            pregunta2: input2,
-            pregunta3: input3,
-            consulta: inputText,
-			fecha: result
-        })
 		guardarDatos();
-		alerta()
+		 alerta() 
 		cambiarHome(false)
-        //console.log(datos)
+		
+        
 		
 		console.log('Formulario Enviado!');
+		
 	}
-
+	
 	const handleInput1 = (e) => {
 		cambiarInput1(e.target.value);
         console.log(input1)
@@ -77,6 +67,19 @@ const guardarDatos = async ()=>{
 	const handleInput2 = (e) => {
 		cambiarInput2(e.target.value);
 	}
+	
+
+	const alerta = ()=>{
+		swal.fire({
+		   title:'Muchas gracias',
+		   text:'Te valoracion fue enviada con Exito',
+		   icon:'success',
+		   button:'Aceptar',
+		   timer:2500,
+		   position: 'center-start',
+		   width:'70%',
+	   })
+	   }
 
 	return (
 		<>
